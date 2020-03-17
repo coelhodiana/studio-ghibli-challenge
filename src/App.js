@@ -1,11 +1,12 @@
 import React from 'react'
 import './App.css'
 import Card from '../src/components/Card/Card'
-// import Logo from './logo.png'
+import Header from './components/Header/Header'
 
 function App() {
   return (
     <div>
+      <Header />
       <Card />
     </div>
   )
