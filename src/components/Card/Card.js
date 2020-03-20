@@ -1,33 +1,26 @@
-import React, { Component } from 'react';
+import React, {useEffect, useState} from 'react';
 import './Card.css'
 
-class Card extends Component {
-    state = { filmes: [] }
+const Card = () => {
+  const [filme, setFilme] = useState([]);
 
-    componentDidMount() {
-        fetch('https://ghibliapi.herokuapp.com/films')
-        .then(res => res.json())
-        .then((data) => {
-          this.setState({ filmes: data })
-          console.log(this.state.filmes)
-        })
-        .catch(console.log)
-      }
+useEffect(() => {
+    fetch("https://ghibliapi.herokuapp.com/films")
+        .then(response => response.json())
+        .then(data => setFilme(data))
+        .catch(err => console.error(err))
+}, [])
 
-
-      render() {
-
-        return (
-           <div className="container">
-            {this.state.filmes.map((filmes) => (
-                <div key={filmes.id} className="card">
-                    <h1 className="movie-title">{filmes.title}</h1>
-                    <p className="description">{filmes.description}</p>
+  return ( 
+          <div className="container">
+            {filme.map(({title, description }) => (
+                <div key={filme.id} className="card">
+                    <h1 className="movie-title">{title}</h1>
+                    <p className="description">{description}</p>
                 </div>
             ))}
            </div>
-        );
-      }
-    }
+   );
+}
  
 export default Card;
